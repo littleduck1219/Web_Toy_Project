@@ -1,12 +1,18 @@
 import { styled } from "styled-components";
 import "./App.css";
-import * as Page from "./components";
+import * as MovieModal from "./components";
+import { requests } from "./api/requests";
 
 function App() {
 	return (
 		<Container>
-			<Page.Nav />
-			<Page.Banner />
+			<MovieModal.Nav />
+			<MovieModal.Banner />
+			<MovieModal.Category />
+			<MovieModal.Row title='Trending Now' id='TN' fetchUrl={requests.fetchTrending} />
+			<MovieModal.Row title='Trending Now' id='TR' fetchUrl={requests.fetchTopRated} />
+			<MovieModal.Row title='Trending Now' id='AM' fetchUrl={requests.fetchActionMovies} />
+			<MovieModal.Row title='Trending Now' id='CM' fetchUrl={requests.fetchComedyMovies} />
 		</Container>
 	);
 }
