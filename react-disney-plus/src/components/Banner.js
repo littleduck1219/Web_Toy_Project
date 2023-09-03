@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import * as Api from "../../api";
+import * as Api from "../api";
 import { styled } from "styled-components";
 
 export const Banner = () => {
