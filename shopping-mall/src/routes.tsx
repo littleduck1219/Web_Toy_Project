@@ -9,6 +9,7 @@ export const routes = [
 			{ path: "/", element: <Lazy.DynamicIndex />, index: true },
 			{ path: "/products", element: <Lazy.DynamicProductsIndex />, index: true },
 			{ path: "/products/:id", element: <Lazy.DynamicProductsId /> },
+			{ path: "/products/cart", element: <Lazy.DynamicCartId />, index: true },
 		],
 	},
 ];

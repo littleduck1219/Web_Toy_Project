@@ -1,4 +1,5 @@
 import "../scss/index.scss";
+import Gnb from "../Components/gnb";
 import React, { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { getClient } from "../queryClient";
@@ -10,6 +11,7 @@ const Layout: React.FC = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Suspense fallback={"loading..."}>
+				<Gnb />
 				<Outlet />
 			</Suspense>
 			<ReactQueryDevtools initialIsOpen={false} />

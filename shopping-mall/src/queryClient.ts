@@ -6,7 +6,18 @@ const BASE_URL = "https://fakestoreapi.com";
 export const getClient = (() => {
 	let client: QueryClient | null = null;
 	return () => {
-		if (!client) client = new QueryClient({});
+		if (!client)
+			client = new QueryClient({
+				defaultOptions: {
+					queries: {
+						cacheTime: 1000 * 60 * 60 * 24,
+						staleTime: 1000 * 60,
+						refetchOnMount: false,
+						refetchOnReconnect: false,
+						refetchOnWindowFocus: false,
+					},
+				},
+			});
 		return client;
 	};
 })();
@@ -42,5 +53,3 @@ export const fetcher = async ({
 export const QueryKeys = {
 	PRODUCTS: "PRODUCTS",
 };
-const queryClient = getClient();
-console.log("QueryClient:", queryClient);
