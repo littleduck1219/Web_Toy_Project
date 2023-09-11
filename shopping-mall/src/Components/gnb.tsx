@@ -5,6 +5,9 @@ const Gnb = () => {
 		<nav className='gnb'>
 			<ul>
 				<li>
+					<Link to='/'>홈</Link>
+				</li>
+				<li>
 					<Link to='/products'>상품목록</Link>
 				</li>
 				<li>
