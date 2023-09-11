@@ -8,7 +8,7 @@ import { useRoutes } from "react-router-dom";
 const App = () => {
 	const elem = useRoutes(routes);
 	const queryClient = getClient();
-	console.log("QueryClient:", queryClient); //
+	console.log("QueryClient:", queryClient);
 
 	useEffect(() => {
 		console.log("QueryClientProvider is mounted.");
