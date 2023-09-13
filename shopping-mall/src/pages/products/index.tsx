@@ -5,7 +5,16 @@ import { Products } from "../../graphqlType";
 import { GET_PRODUCTS } from "../../graphql/products";
 
 const ProductList = () => {
-	const { data } = useQuery<Products>([QueryKeys.PRODUCTS], () => graphqlFetcher(GET_PRODUCTS) as Promise<Products>);
+	const { data, isLoading, error } = useQuery<Products>(
+		[QueryKeys.PRODUCTS],
+		() => graphqlFetcher(GET_PRODUCTS) as Promise<Products>
+	);
+
+	if (isLoading) {
+		<div>Loading...</div>;
+	} else if (error) {
+		<div> error</div>;
+	}
 	return (
 		<div>
 			<ul className='products'>

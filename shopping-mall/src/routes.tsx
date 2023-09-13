@@ -1,17 +1,18 @@
 import GlobalLayout from "./pages/_layout";
-import * as Lazy from "./Lazy";
+import MainPage from "./pages";
+import ProductList from "./pages/products";
+import ProductDetailPage from "./pages/products/[id]";
+import Cart from "./pages/cart";
 
 export const routes = [
 	{
 		path: "/",
 		element: <GlobalLayout />,
 		children: [
-			{ path: "/", element: <Lazy.DynamicIndex />, index: true },
-			{ path: "/products", element: <Lazy.DynamicProductsIndex />, index: true },
-			{ path: "/products/:id", element: <Lazy.DynamicProductsId /> },
-			{ path: "/products/cart", element: <Lazy.DynamicCartId />, index: true },
+			{ path: "/", element: <MainPage />, index: true },
+			{ path: "/products", element: <ProductList />, index: true },
+			{ path: "/products/:id", element: <ProductDetailPage /> },
+			{ path: "/products/cart", element: <Cart />, index: true },
 		],
 	},
 ];
-
-export const pages = [{ route: "/" }, { route: "/products" }, { route: "/products/:id" }];

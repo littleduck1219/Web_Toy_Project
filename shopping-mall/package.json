@@ -14,14 +14,15 @@
     "@tanstack/react-query-devtools": "^4.35.0",
     "graphql-request": "^6.1.0",
     "graphql-tag": "^2.12.6",
+    "proj4": "^2.9.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
-    "uuid": "^9.0.0",
-    "vite-plugin-next-react-router": "^0.7.1"
+    "recoil": "^0.7.7",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
+    "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@types/uuid": "^9.0.3",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

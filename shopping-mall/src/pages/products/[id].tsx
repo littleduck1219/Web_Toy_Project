@@ -8,7 +8,7 @@ import { GET_PRODUCT } from "../../graphql/products";
 const ProductDetailPage = () => {
 	const { id } = useParams();
 	const { data } = useQuery<Product>(
-		[QueryKeys.PRODUCT, id],
+		[QueryKeys.PRODUCTS, id],
 		() => graphqlFetcher(GET_PRODUCT, { id }) as Promise<Product>
 	);
 

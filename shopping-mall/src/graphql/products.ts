@@ -1,7 +1,7 @@
 import { gql } from "graphql-tag";
 
 export const GET_PRODUCTS = gql`
-	query GET_PRODUCT {
+	query GET_PRODUCTS {
 		id
 		imageUrl
 		price
