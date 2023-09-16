@@ -2,7 +2,7 @@
 import { graphql } from "msw";
 import { GET_PRODUCT, GET_PRODUCTS } from "../graphql/products";
 import { ADD_CART, GET_CART } from "../graphql/cart";
-import { Cart } from "../graphqlType";
+import { CartType } from "../graphqlType";
 
 const mockProducts = (() =>
 	Array.from({ length: 20 }).map((_, i) => ({
@@ -11,10 +11,10 @@ const mockProducts = (() =>
 		price: 50000,
 		title: `임시상품${i + 1}`,
 		description: `임시상품상세내용${i + 1}`,
-		creactedAt: new Date(1694461295180 + i * 1000 * 60).toString(),
+		createdAt: new Date(1694461295180 + i * 1000 * 60).toString(),
 	})))();
 
-const cartData: { [key: string]: Cart } = (() => ({}))();
+let cartData: { [key: string]: CartType } = (() => ({}))();
 
 export const handlers = [
 	graphql.query(GET_PRODUCTS, (req, res, ctx) => {
@@ -30,7 +30,7 @@ export const handlers = [
 		return res();
 	}),
 	graphql.query(GET_CART, (req, res, ctx) => {
-		return res();
+		return res(ctx.data(cartData));
 	}),
 	graphql.mutation(ADD_CART, (req, res, ctx) => {
 		const newData = { ...cartData };
@@ -38,17 +38,18 @@ export const handlers = [
 		if (newData[id]) {
 			newData[id] = {
 				...newData[id],
-				amount: newData[id].amount + 1,
+				amount: (newData[id].amount || 0) + 1,
 			};
 		} else {
 			const found = mockProducts.find((item) => item.id === req.variables.id);
 			if (found) {
 				newData[id] = {
 					...found,
-					amount: newData[id].amount + 1,
+					amount: 1,
 				};
 			}
 		}
-		return res(ctx.data({}));
+		cartData = newData;
+		return res(ctx.data(newData));
 	}),
 ];

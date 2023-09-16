@@ -11,7 +11,7 @@ export type Products = {
 	products: Product[];
 };
 
-export type Cart = {
+export type CartType = {
 	id: string;
 	imageUrl: string;
 	price: number;
