@@ -4,10 +4,13 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "components/Loader";
 
 const App = () => {
 	const auth = getAuth(app);
-	console.log(auth);
+	// auth를 체크하기 전에 (initialize 전)에는 loader를 띄워주는 용도
+	const [init, setInit] = useState<boolean>(false);
+	// auth의 currentUser가 있으면 authenticated로 변경
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!auth?.currentUser);
 
 	useEffect(() => {
@@ -17,13 +20,14 @@ const App = () => {
 			} else {
 				setIsAuthenticated(false);
 			}
+			setInit(true);
 		});
 	}, [auth]);
 
 	return (
 		<>
 			<ToastContainer />
-			<Router isAuthenticated={isAuthenticated} />
+			{init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
 		</>
 	);
 };
