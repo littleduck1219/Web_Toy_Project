@@ -21,9 +21,9 @@ const Profile = () => {
 					<div className='profile__email'>test@test.com</div>
 					<div className='profile__name'>김유저</div>
 				</div>
-			</div>
-			<div role='presentation' className='profile__logout' onClick={onSignOut}>
-				로그아웃
+				<div role='presentation' className='profile__logout' onClick={onSignOut}>
+					로그아웃
+				</div>
 			</div>
 		</div>
 	);
