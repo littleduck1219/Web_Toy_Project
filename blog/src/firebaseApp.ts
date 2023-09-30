@@ -2,6 +2,7 @@
 import { FirebaseApp, getApp, initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 export let app: FirebaseApp;
 
@@ -24,5 +25,7 @@ try {
 } catch (e) {
 	app = initializeApp(firebaseConfig, "app");
 }
+
+export const db = getFirestore(app);
 
 export default firebase;
