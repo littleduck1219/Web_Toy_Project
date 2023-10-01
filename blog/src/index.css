@@ -180,7 +180,18 @@ footer a:hover {
 	color: gray;
 }
 
-.post .profile__box {
+.post__no-post {
+	font-size: 36px;
+	padding: 24px;
+	text-align: center;
+	color: gray;
+}
+
+.post__text--pre-wrap {
+	white-space: pre-wrap;
+}
+
+.profile__box {
 	display: flex;
 	gap: 18px;
 	align-items: center;
@@ -195,6 +206,7 @@ footer a:hover {
 
 .flex__box-lg {
 	display: flex;
+	align-items: center;
 	gap: 18px;
 	align-items: center;
 }
