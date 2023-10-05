@@ -1,6 +1,8 @@
+import { ReactNode } from "react";
+
 export interface PostListProps {
 	hasNavigation?: boolean;
-	defaultTab?: TabType;
+	defaultTab?: TabType | CategoryType;
 }
 
 export type TabType = "all" | "my";
@@ -14,4 +16,11 @@ export interface PostProps {
 	createdAt: string;
 	updatedAt?: string;
 	uid: string;
+	category?: CategoryType;
+}
+
+export type CategoryType = "Frontend" | "Backend" | "Web" | "Native";
+
+export interface ThemeProps {
+	children: ReactNode;
 }

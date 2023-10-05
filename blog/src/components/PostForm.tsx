@@ -4,7 +4,8 @@ import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { PostProps } from "type";
+import { CategoryType, PostProps } from "type";
+import { CATEGORIES } from "./PostList";
 
 const PostForm = () => {
 	const params = useParams();
@@ -12,6 +13,7 @@ const PostForm = () => {
 	const [title, setTitle] = useState<string>("");
 	const [summary, setSummary] = useState<string>("");
 	const [content, setContent] = useState<string>("");
+	const [category, setCategory] = useState<CategoryType | string>("");
 	const { user } = useContext(AuthContext);
 	const navigate = useNavigate();
 
@@ -24,6 +26,17 @@ const PostForm = () => {
 		}
 	};
 
+	const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+		const {
+			target: { name, value },
+		} = e;
+
+		if (name === "title") setTitle(value);
+		if (name === "summary") setSummary(value);
+		if (name === "content") setContent(value);
+		if (name === "category") setCategory(value);
+	};
+
 	useEffect(() => {
 		if (params?.id) getPost(params?.id);
 	}, [params?.id]);
@@ -33,6 +46,7 @@ const PostForm = () => {
 			setTitle(post?.title);
 			setSummary(post?.summary);
 			setContent(post?.content);
+			setCategory(post?.category as CategoryType);
 		}
 	}, [post]);
 	const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,6 +59,7 @@ const PostForm = () => {
 				await updateDoc(postRef, {
 					title,
 					summary,
+					category,
 					content,
 					updatedAt: new Date()?.toLocaleDateString("ko", {
 						hour: "2-digit",
@@ -60,6 +75,7 @@ const PostForm = () => {
 				await addDoc(collection(db, "posts"), {
 					title,
 					summary,
+					category,
 					content,
 					createdAt: new Date()?.toLocaleDateString("ko", {
 						hour: "2-digit",
@@ -78,27 +94,22 @@ const PostForm = () => {
 		}
 	};
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const {
-			target: { name, value },
-		} = e;
-
-		if (name === "title") {
-			setTitle(value);
-		}
-		if (name === "summary") {
-			setSummary(value);
-		}
-		if (name === "content") {
-			setContent(value);
-		}
-	};
-
 	return (
 		<form className='form' onSubmit={onSubmit}>
 			<div className='form__block'>
 				<label htmlFor='title'>제목</label>
 				<input type='text' name='title' id='title' required value={title} onChange={onChange} />
+			</div>
+			<div className='form__block'>
+				<label htmlFor='category'>카테고리</label>
+				<select name='category' id='category' onChange={onChange} defaultValue={category}>
+					<option value=''>카테고리를 선택해주세요</option>
+					{CATEGORIES?.map((category) => (
+						<option value={category} key={category}>
+							{category}
+						</option>
+					))}
+				</select>
 			</div>
 			<div className='form__block'>
 				<label htmlFor='summary'>요약</label>

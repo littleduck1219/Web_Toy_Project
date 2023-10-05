@@ -50,6 +50,8 @@ const PostDetail = () => {
 							<div className='post__date'>{post?.createdAt}</div>
 						</div>
 						<div className='post__utils-box'>
+							{post?.category && <div className='post__category'>{post?.category}</div>}
+
 							<div className='post__delete' role='presentation' onClick={handleDelete}>
 								삭제
 							</div>

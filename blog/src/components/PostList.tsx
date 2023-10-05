@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { collection, deleteDoc, doc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
-import { PostListProps, PostProps, TabType } from "type";
+import { CategoryType, PostListProps, PostProps, TabType } from "type";
 import { toast } from "react-toastify";
 
+export const CATEGORIES: CategoryType[] = ["Frontend", "Backend", "Web", "Native"];
+
 const PostList = ({ hasNavigation = true, defaultTab = "all" }: PostListProps) => {
-	const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
+	const [activeTab, setActiveTab] = useState<TabType | CategoryType>(defaultTab);
 	const [posts, setPosts] = useState<any[]>([]);
 	const { user } = useContext(AuthContext);
 	const navigate = useNavigate();
@@ -21,9 +23,11 @@ const PostList = ({ hasNavigation = true, defaultTab = "all" }: PostListProps) =
 		if (activeTab === "my" && user) {
 			// 나의 글
 			postsQuery = query(postsRef, where("uid", "==", user.uid), orderBy("createdAt", "desc"));
-		} else {
+		} else if (activeTab === "all") {
 			// 전체 글
 			postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+		} else {
+			postsQuery = query(postsRef, where("category", "==", activeTab), orderBy("createdAt", "desc"));
 		}
 		const data = await getDocs(postsQuery);
 		data?.forEach((doc) => {
@@ -65,6 +69,15 @@ const PostList = ({ hasNavigation = true, defaultTab = "all" }: PostListProps) =
 						className={activeTab === "my" ? "post__navigation--active" : ""}>
 						나의 글
 					</div>
+					{CATEGORIES?.map((category) => (
+						<div
+							key={category}
+							role='presentation'
+							onClick={() => setActiveTab(category)}
+							className={activeTab === category ? "post__navigation--active" : ""}>
+							{category}
+						</div>
+					))}
 				</div>
 			)}
 
