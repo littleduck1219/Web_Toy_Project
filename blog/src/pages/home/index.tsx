@@ -4,13 +4,13 @@ import PostList from "components/PostList";
 import Carousel from "components/Carousel";
 
 const Home = () => {
-  return (
-    <>
-      <Header />
-      <Carousel />
-      <PostList />
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<Carousel />
+			<PostList />
+			<Footer />
+		</>
+	);
 };
 export default Home;

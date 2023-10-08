@@ -1,5 +1,5 @@
 import { Router } from "./Router";
-import { app } from "firebaseApp";
+import firebase, { app } from "firebaseApp";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,6 +24,8 @@ const App = () => {
 			setInit(true);
 		});
 	}, [auth]);
+
+	console.log(auth);
 
 	return (
 		<div className={context.theme === "light" ? "white" : "dark"}>

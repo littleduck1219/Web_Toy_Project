@@ -5,7 +5,6 @@ import ThemeContext from "context/ThemeContext";
 
 const Footer = () => {
 	const context = useContext(ThemeContext);
-	console.log(context);
 	return (
 		<footer>
 			<Link to='/posts/new'>글쓰기</Link>

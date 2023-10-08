@@ -7,10 +7,7 @@ import LoginPage from "pages/login";
 import SignupPage from "pages/signup";
 import PostPage from "pages/posts/detail";
 import PostNew from "pages/posts/new";
-
-interface RouterProps {
-	isAuthenticated: boolean;
-}
+import { RouterProps } from "type";
 
 export const Router = ({ isAuthenticated }: RouterProps) => {
 	return (

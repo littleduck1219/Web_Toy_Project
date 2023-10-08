@@ -15,22 +15,23 @@ const PostList = ({ hasNavigation = true, defaultTab = "all" }: PostListProps) =
 	const navigate = useNavigate();
 
 	const getPosts = async () => {
-		// const data = await getDocs(collection(db, "posts"));
+		// posts 초기화
 		setPosts([]);
 		let postsRef = collection(db, "posts");
 		let postsQuery;
 
 		if (activeTab === "my" && user) {
-			// 나의 글
-			postsQuery = query(postsRef, where("uid", "==", user.uid), orderBy("createdAt", "desc"));
+			// 나의 글만 필터링
+			postsQuery = query(postsRef, where("uid", "==", user.uid), orderBy("createdAt", "asc"));
 		} else if (activeTab === "all") {
-			// 전체 글
-			postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+			// 모든 글 보여주기
+			postsQuery = query(postsRef, orderBy("createdAt", "asc"));
 		} else {
-			postsQuery = query(postsRef, where("category", "==", activeTab), orderBy("createdAt", "desc"));
+			// 카테고리 글 보여주기
+			postsQuery = query(postsRef, where("category", "==", activeTab), orderBy("createdAt", "asc"));
 		}
-		const data = await getDocs(postsQuery);
-		data?.forEach((doc) => {
+		const datas = await getDocs(postsQuery);
+		datas?.forEach((doc) => {
 			const dataObj = { ...doc.data(), id: doc.id };
 			setPosts((prev) => [...prev, dataObj as PostProps]);
 		});
